@@ -9,6 +9,7 @@
 
 library(deSolve)
 library(tidyverse)
+library(ggplot2)
 
 #create timer series to estimate numerical solution over
 time_seq <- seq(from = 0, to = 0.2, by = 0.001)
@@ -40,3 +41,14 @@ approx_df_example <- deSolve::ode(y = init_cond_example,
                                   times = time_seq,
                                   func = df_equation_example,
                                   parms = parameter_example)
+
+#check class
+class(approx_df_example)
+
+#convert to data frame for plotting
+approx_df_example <- data.frame(approx_df_example)
+class(approx_df_example)
+
+#plot it!
+ggplot(data = approx_df_example, aes(x = time, y = C)) +
+  geom_point(size = 0.1)
